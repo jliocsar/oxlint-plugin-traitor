@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "traitor/fail": "error",
+    "traitor/review": "warn"
+  }
+}

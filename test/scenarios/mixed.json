@@ -1,0 +1,115 @@
+{
+  "exitCode": 1,
+  "report": {
+    "version": 1,
+    "snippetCount": 6,
+    "failsCheck": true,
+    "nonUtf8Paths": [],
+    "findings": [
+      {
+        "path": "test/fixtures/config.ts",
+        "firstLine": 3,
+        "lastLine": 5,
+        "trait": "railway-not-guards",
+        "title": "Railway, not guards",
+        "why": "Guards hide how a value flows.",
+        "verdict": "fail",
+        "pFail": 0.91,
+        "threshold": 0.5,
+        "failsCheck": true,
+        "fromCache": false
+      },
+      {
+        "path": "test/fixtures/config.ts",
+        "firstLine": 7,
+        "lastLine": 8,
+        "trait": "railway-not-guards",
+        "title": "Railway, not guards",
+        "why": "Guards hide how a value flows.",
+        "verdict": "fail",
+        "pFail": 0.4,
+        "threshold": 0.5,
+        "failsCheck": false,
+        "fromCache": true
+      },
+      {
+        "path": "test/fixtures/config.ts",
+        "firstLine": 10,
+        "lastLine": 12,
+        "trait": "named-intermediates",
+        "title": "Named intermediates",
+        "why": "A name says what a value is.",
+        "verdict": "unsure",
+        "pFail": 0.5,
+        "threshold": 0.7,
+        "failsCheck": false,
+        "fromCache": false
+      },
+      {
+        "path": "test/fixtures/config.ts",
+        "firstLine": 14,
+        "lastLine": 14,
+        "trait": "named-intermediates",
+        "title": "Named intermediates",
+        "why": "A name says what a value is.",
+        "verdict": "pass",
+        "pFail": 0.02,
+        "threshold": 0.7,
+        "failsCheck": false,
+        "fromCache": false
+      },
+      {
+        "path": "test/fixtures/config.ts",
+        "firstLine": 15,
+        "lastLine": 15,
+        "trait": "docs-voice",
+        "title": "Docs voice",
+        "why": "Docs read like a person.",
+        "verdict": "n/a",
+        "pFail": 0,
+        "threshold": 0.5,
+        "failsCheck": false,
+        "fromCache": false
+      },
+      {
+        "path": "test/fixtures/config.ts",
+        "firstLine": 17,
+        "lastLine": 18,
+        "trait": "no-dense-lines",
+        "title": "No dense lines",
+        "why": "One idea per line.",
+        "verdict": "fail",
+        "pFail": 0.8,
+        "threshold": null,
+        "failsCheck": false,
+        "fromCache": false
+      },
+      {
+        "path": "test/fixtures/other.ts",
+        "firstLine": 1,
+        "lastLine": 1,
+        "trait": "railway-not-guards",
+        "title": "Railway, not guards",
+        "why": "Guards hide how a value flows.",
+        "verdict": "fail",
+        "pFail": 0.6,
+        "threshold": 0.5,
+        "failsCheck": true,
+        "fromCache": false
+      },
+      {
+        "path": "test/fixtures/elsewhere.ts",
+        "firstLine": 1,
+        "lastLine": 1,
+        "trait": "railway-not-guards",
+        "title": "Railway, not guards",
+        "why": "Guards hide how a value flows.",
+        "verdict": "fail",
+        "pFail": 0.9,
+        "threshold": 0.5,
+        "failsCheck": true,
+        "fromCache": false
+      }
+    ]
+  }
+}

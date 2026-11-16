@@ -1,0 +1,10 @@
+{
+  "extends": "@jliocsar/begone-slop/tsconfig",
+
+  "include": ["src/**/*.ts", "test/**/*.ts", "scripts/**/*.ts"],
+  "exclude": ["test/fixtures/**", "dist"],
+
+  "compilerOptions": {
+    "types": ["bun"]
+  }
+}

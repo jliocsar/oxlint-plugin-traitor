@@ -1,0 +1,86 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '0 6 * * 1'
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - run: bun install --frozen-lockfile
+
+      - run: bun run typecheck
+      - run: bun run lint
+      - run: bun run test
+      - run: bun run fmt:check
+
+      - name: The generated types match the vendored schema
+        run: |
+          bun run schema:types
+          git diff --exit-code src/report.generated.ts
+
+  schema:
+    name: the vendored schema matches traitor main
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - run: bun run schema:check
+
+  installable:
+    name: installs from a tarball and runs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - run: bun install --frozen-lockfile
+
+      - name: Pack the tarball
+        run: |
+          tarball="$PWD/$(npm pack --silent 2>/dev/null | tail -1)"
+          test -f "$tarball"
+          echo "TARBALL=$tarball" >> "$GITHUB_ENV"
+
+      - name: Install it into a project that is not this one
+        working-directory: ${{ runner.temp }}
+        run: |
+          git init -q
+          npm init -y > /dev/null
+          npm i -D oxlint "$TARBALL"
+
+      - name: A missing traitor is reported, not crashed on
+        working-directory: ${{ runner.temp }}
+        run: |
+          cat > .oxlintrc.json <<'JSON'
+          {
+            "extends": ["./node_modules/@jliocsar/oxlint-plugin-traitor/preset.json"],
+            "jsPlugins": ["@jliocsar/oxlint-plugin-traitor"],
+            "settings": { "traitor": { "command": "/nonexistent/traitor" } }
+          }
+          JSON
+          echo 'export const value = 1' > code.ts
+          npx oxlint code.ts > report.txt 2>&1 || true
+          cat report.txt
+          grep -q 'traitor could not check this run' report.txt
