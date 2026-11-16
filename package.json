@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json.schemastore.org/package",
+  "name": "@jliocsar/oxlint-plugin-traitor",
+  "version": "0.0.0",
+  "description": "Runs traitor once per oxlint run and reports its findings as diagnostics",
+  "keywords": [
+    "jev",
+    "lint",
+    "oxlint",
+    "plugin",
+    "traitor"
+  ],
+  "homepage": "https://github.com/jliocsar/oxlint-plugin-traitor#readme",
+  "bugs": {
+    "url": "https://github.com/jliocsar/oxlint-plugin-traitor/issues"
+  },
+  "license": "MIT",
+  "author": "jliocsar",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jliocsar/oxlint-plugin-traitor.git"
+  },
+  "files": [
+    "dist",
+    "preset.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "type": "module",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./preset.json": "./preset.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "bunx --bun tsdown src/index.ts --format esm --dts --clean",
+    "test": "bun test ./test/",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "bunx --bun oxlint --deny-warnings",
+    "lint:fix": "bunx --bun oxlint --fix --deny-warnings",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
+    "schema:types": "json2ts -i schema/check-report.schema.json -o src/report.generated.ts --additionalProperties false && oxfmt src/report.generated.ts",
+    "schema:check": "bun scripts/check-schema.ts",
+    "prepack": "bun run build"
+  },
+  "dependencies": {
+    "@oxlint/plugins": "^1.91.0"
+  },
+  "devDependencies": {
+    "@jliocsar/begone-slop": "0.2.12",
+    "@types/bun": "^1.3.14",
+    "json-schema-to-typescript": "16.0.0",
+    "oxfmt": "^0.62.0",
+    "oxlint": "1.91.0",
+    "oxlint-tsgolint": "7.0.2006",
+    "tsdown": "^0.22.0",
+    "typescript": "7.0.2"
+  },
+  "peerDependencies": {
+    "oxlint": ">=1.91.0"
+  }
+}
