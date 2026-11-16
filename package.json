@@ -1,7 +1,7 @@
 {
   "$schema": "http://json.schemastore.org/package",
   "name": "@jliocsar/oxlint-plugin-traitor",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Runs traitor once per oxlint run and reports its findings as diagnostics",
   "keywords": [
     "jev",
